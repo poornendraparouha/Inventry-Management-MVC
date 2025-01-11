@@ -18,6 +18,8 @@ const productController = new ProductController();
 server.use(express.static("src/views"));
 
 server.get('/', productController.getProducts);
+server.get('/new', productController.getAddForm);
+server.post('/', productController.addNewProduct);
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000');

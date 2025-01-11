@@ -3,9 +3,6 @@ import ProductModal from '../models/product.model.js';
 
 
 export default class ProductController{
-    // constructor(productService){
-    //     this.productService = productService;
-    // }
 
      getProducts(req, res){
         // productModal.get() will return the products array
@@ -16,33 +13,16 @@ export default class ProductController{
         // return res.sendFile(path.join(path.resolve(),"src","views","products.html"));
     }
 
-    // async getProducts(req, res){
-    //     const products = await this.productService.getProducts();
-    //     res.json(products);
-    // }
+    getAddForm(req, res){
+        return res.render('new-product');
+    }
 
-    // async getProductById(req, res){
-    //     const { id } = req.params;
-    //     const product = await this.productService.getProductById(id);
-    //     res.json(product);
-    // }
+    addNewProduct(req, res){
+        // access data from the form
+        console.log(req.body);
+        let products = ProductModal.get();
 
-    // async createProduct(req, res){
-    //     const { body } = req;
-    //     const newProduct = await this.productService.createProduct(body);
-    //     res.json(newProduct);
-    // }
+        res.render('products', {products:products});
+    }
 
-    // async updateProduct(req, res){
-    //     const { id } = req.params;
-    //     const { body } = req;
-    //     const updatedProduct = await this.productService.updateProduct(id, body);
-    //     res.json(updatedProduct);
-    // }
-
-    // async deleteProduct(req, res){
-    //     const { id } = req.params;
-    //     const deletedProduct = await this.productService.deleteProduct(id);
-    //     res.json(deletedProduct);
-    // }
 }
