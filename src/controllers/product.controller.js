@@ -1,4 +1,5 @@
 import path from 'path';
+import ProductModal from '../models/product.model.js';
 
 
 export default class ProductController{
@@ -7,7 +8,9 @@ export default class ProductController{
     // }
 
      getProducts(req, res){
-        console.log(path.resolve());
+        // productModal.get() will return the products array
+        let products = ProductModal.get();
+        console.log(products);
         return res.sendFile(path.join(path.resolve(),"src","views","products.html"));
     }
 
