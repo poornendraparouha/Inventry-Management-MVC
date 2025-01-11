@@ -11,7 +11,9 @@ export default class ProductController{
         // productModal.get() will return the products array
         let products = ProductModal.get();
         console.log(products);
-        return res.sendFile(path.join(path.resolve(),"src","views","products.html"));
+        // render the products view and pass the products array to it
+        res.render('products', {products:products});
+        // return res.sendFile(path.join(path.resolve(),"src","views","products.html"));
     }
 
     // async getProducts(req, res){

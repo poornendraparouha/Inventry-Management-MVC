@@ -14,7 +14,7 @@ export default class ProductModal{
 }
 
 var products = [
-    new ProductModal(1, "Product 1", "This is product 1", 100, "https://via.placeholder.com/150"),
-    new ProductModal(2, "Product 2", "This is product 2", 200, "https://via.placeholder.com/150"),
-    new ProductModal(3, "Product 3", "This is product 3", 300, "https://via.placeholder.com/150"),
+    new ProductModal(1, "Atomic Habits", "A supremely practical and useful book.", 100, "https://m.media-amazon.com/images/I/51-nXsSRfZL._SX328_BO1,204,203,200_.jpg"),
+    new ProductModal(2, "Ikigai", "The Japanese secret to a long and happy life", 200, "https://m.media-amazon.com/images/I/51xwGSNX-EL._SX356_BO1,204,203,200_.jpg"),
+    new ProductModal(3, "Deep Work", "RULES FOR FOCUSED SUCCESS IN A DISTRACTED WORLD", 300, "https://m.media-amazon.com/images/I/31PBdo581fL._SX317_BO1,204,203,200_.jpg"),
 ];
