@@ -5,12 +5,17 @@ import expressEjsLayouts from 'express-ejs-layouts';
 
 const server = express();
 
+// parse form data
+server.use(express.urlencoded({ extended: true }));
+
 // setup view engine settings
 server.set('view engine', 'ejs');
 server.set('views', path.join(path.resolve(),"src","views",));
 
 // setup express-ejs-layouts
 server.use(expressEjsLayouts);
+
+
 
 // create a new instance of the ProductController 
 const productController = new ProductController();
