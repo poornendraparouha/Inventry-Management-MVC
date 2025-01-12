@@ -16,6 +16,11 @@ export default class ProductModal{
         products[index] = productObj;
     }
 
+    static delete(id){
+        let index = products.findIndex(product => product.id == id);
+        products.splice(index, 1);
+    }
+
     // to add a new product to the products array
     static add(productObj){
         let newProduct = new ProductModal(
