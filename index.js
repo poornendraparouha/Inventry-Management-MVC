@@ -6,6 +6,7 @@ import formValidationMiddleware from './src/middlewares/validation.middleware.js
 
 const server = express();
 
+server.use(express.static("public"));
 // parse form data
 server.use(express.urlencoded({ extended: true }));
 
@@ -26,7 +27,7 @@ server.use(express.static("src/views"));
 server.get('/', productController.getProducts);
 server.get('/new', productController.getAddForm);
 server.get('/update-product/:id', productController.getUpdateProductView);
-server.get('/delete-product/:id', productController.deleteProduct);
+server.post('/delete-product/:id', productController.deleteProduct);
 server.post('/',formValidationMiddleware, productController.addNewProduct);
 server.post('/update-product', productController.postUpdateProduct);
 
