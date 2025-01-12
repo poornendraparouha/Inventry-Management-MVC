@@ -11,6 +11,7 @@ export default class ProductModal{
     static get(){
         return products;
     }
+    // to add a new product to the products array
     static add(productObj){
         let newProduct = new ProductModal(
             products.length + 1,
@@ -19,6 +20,10 @@ export default class ProductModal{
             productObj.price, 
             productObj.imageUrl);
         products.push(newProduct);
+    }
+    // to update a product in the products array
+    static getById(id){
+        return products.find(product => product.id == id);
     }
 }
 
