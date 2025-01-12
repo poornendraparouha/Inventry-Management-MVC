@@ -25,9 +25,11 @@ server.use(express.static("src/views"));
 
 server.get('/', productController.getProducts);
 server.get('/new', productController.getAddForm);
+server.get('/update-product/:id', productController.getUpdateProductView);
 server.post('/',formValidationMiddleware, productController.addNewProduct);
-server.get('/update-product', productController.getUpdateProductView);
+server.post('/update-product', productController.postUpdateProduct);
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
+

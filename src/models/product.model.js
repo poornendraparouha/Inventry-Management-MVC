@@ -11,6 +11,11 @@ export default class ProductModal{
     static get(){
         return products;
     }
+    static update(productObj){
+        let index = products.findIndex(product => product.id == productObj.id);
+        products[index] = productObj;
+    }
+
     // to add a new product to the products array
     static add(productObj){
         let newProduct = new ProductModal(
