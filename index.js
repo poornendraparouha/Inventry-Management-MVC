@@ -5,10 +5,20 @@ import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 import formValidationMiddleware from './src/middlewares/validation.middleware.js';
 import {uploadFile} from './src/middlewares/file-upload-middleware.js';
+import {authMiddleware} from './src/middlewares/auth.middleware.js';
+import session from 'express-session';
 
 const server = express();
 
 server.use(express.static("public"));
+
+// setup express-session
+server.use(session({
+  secret: 'SecretKey',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 // parse form data
 server.use(express.urlencoded({ extended: true }));
 
@@ -27,16 +37,16 @@ const productController = new ProductController();
 
 server.use(express.static("src/views"));
 
-server.get('/', productController.getProducts);
+server.get('/', authMiddleware, productController.getProducts);
 server.get('/register', userController.getRegister);
 server.get('/signin', userController.getSignIn);
-server.get('/new', productController.getAddForm);
-server.get('/update-product/:id', productController.getUpdateProductView);
+server.get('/new',authMiddleware, productController.getAddForm);
+server.get('/update-product/:id',authMiddleware, productController.getUpdateProductView);
 server.post('/register', userController.postRegister);
 server.post('/signin', userController.postSignIn);
-server.post('/delete-product/:id', productController.deleteProduct);
-server.post('/',uploadFile.single('imageUrl'),formValidationMiddleware, productController.addNewProduct);
-server.post('/update-product', uploadFile.single('imageUrl'), productController.postUpdateProduct);
+server.post('/delete-product/:id',authMiddleware, productController.deleteProduct);
+server.post('/',authMiddleware, uploadFile.single('imageUrl'),formValidationMiddleware, productController.addNewProduct);
+server.post('/update-product',authMiddleware, uploadFile.single('imageUrl'), productController.postUpdateProduct);
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000');

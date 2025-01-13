@@ -14,16 +14,13 @@ export default class UserController {
         res.render('signin', { errorMessage: null });
     }
     postSignIn(req, res) {
-        console.log('Request body:', req.body);
         const { email, password } = req.body;
-        console.log(`Attempting login with: ${email}, ${password}`);
         const user = UserModel.isValidUser(email, password);
         if (!user) {
-            console.log('Invalid credentials, rendering error message.');
             return res.render('signin', { errorMessage: 'Invalid email or password' 
             });
         }
-        console.log('Login successful, rendering products.');
+        req.session.userEmail = email;
         let products = ProductModal.get();
         res.render('products', {products});
         
