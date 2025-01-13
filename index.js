@@ -7,10 +7,14 @@ import formValidationMiddleware from './src/middlewares/validation.middleware.js
 import {uploadFile} from './src/middlewares/file-upload-middleware.js';
 import {authMiddleware} from './src/middlewares/auth.middleware.js';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import { setLastVisit } from './src/middlewares/lastVisit.middleware.js';
 
 const server = express();
 
 server.use(express.static("public"));
+server.use(cookieParser());
+server.use(setLastVisit)
 
 // setup express-session
 server.use(session({
