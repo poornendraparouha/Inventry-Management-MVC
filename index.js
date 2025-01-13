@@ -1,4 +1,5 @@
 import express from 'express';
+import UserController from './src/controllers/user.Controller.js';
 import ProductController from './src/controllers/product.controller.js';
 import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
@@ -20,14 +21,19 @@ server.use(expressEjsLayouts);
 
 
 
-// create a new instance of the ProductController 
+// create a new instance of the UserController and ProductController 
+const userController = new UserController();
 const productController = new ProductController();
 
 server.use(express.static("src/views"));
 
 server.get('/', productController.getProducts);
+server.get('/register', userController.getRegister);
+server.get('/signin', userController.getSignIn);
 server.get('/new', productController.getAddForm);
 server.get('/update-product/:id', productController.getUpdateProductView);
+server.post('/register', userController.postRegister);
+server.post('/signin', userController.postSignIn);
 server.post('/delete-product/:id', productController.deleteProduct);
 server.post('/',uploadFile.single('imageUrl'),formValidationMiddleware, productController.addNewProduct);
 server.post('/update-product', uploadFile.single('imageUrl'), productController.postUpdateProduct);
