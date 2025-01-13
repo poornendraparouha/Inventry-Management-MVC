@@ -3,6 +3,7 @@ import ProductController from './src/controllers/product.controller.js';
 import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 import formValidationMiddleware from './src/middlewares/validation.middleware.js';
+import {uploadFile} from './src/middlewares/file-upload-middleware.js';
 
 const server = express();
 
@@ -28,8 +29,8 @@ server.get('/', productController.getProducts);
 server.get('/new', productController.getAddForm);
 server.get('/update-product/:id', productController.getUpdateProductView);
 server.post('/delete-product/:id', productController.deleteProduct);
-server.post('/',formValidationMiddleware, productController.addNewProduct);
-server.post('/update-product', productController.postUpdateProduct);
+server.post('/',uploadFile.single('imageUrl'),formValidationMiddleware, productController.addNewProduct);
+server.post('/update-product', uploadFile.single('imageUrl'), productController.postUpdateProduct);
 
 server.listen(3000, () => {
     console.log('Server is running on port 3000');

@@ -13,7 +13,12 @@ export default class ProductModal{
     }
     static update(productObj){
         let index = products.findIndex(product => product.id == productObj.id);
-        products[index] = productObj;
+        if (index !== -1) {
+            products[index] = productObj;
+        }else {
+            console.log('Product not found for update');
+        }
+        // products[index] = productObj;
     }
 
     static delete(id){
@@ -22,13 +27,13 @@ export default class ProductModal{
     }
 
     // to add a new product to the products array
-    static add(productObj){
+    static add(name, desc, price, imageUrl){
         let newProduct = new ProductModal(
             products.length + 1,
-            productObj.name, 
-            productObj.desc, 
-            productObj.price, 
-            productObj.imageUrl);
+            name, 
+            desc, 
+            price, 
+            imageUrl);
         products.push(newProduct);
     }
     // to update a product in the products array

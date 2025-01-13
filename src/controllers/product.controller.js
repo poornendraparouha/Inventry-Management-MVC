@@ -19,7 +19,9 @@ export default class ProductController{
 
     addNewProduct(req, res){
         // access data from the form
-        ProductModal.add(req.body);        
+        const {name, desc, price } = req.body;
+        const imageUrl = "images/" + req.file.filename;
+        ProductModal.add(name, desc, price, imageUrl);        
         let products = ProductModal.get();
         return res.render('products', {products:products});
     }
@@ -37,8 +39,11 @@ export default class ProductController{
     }
 
     postUpdateProduct(req, res){
-        // access data from the form
-        ProductModal.update(req.body);        
+        const {id, name, desc, price } = req.body
+        const imageUrl = "images/" + (req.file ? req.file.filename : req.body.existingImageUrl);
+        const updatedProduct = {id, name, desc, price, imageUrl};
+
+        ProductModal.update(updatedProduct);
         let products = ProductModal.get();
         return res.render('products', {products:products});
     }

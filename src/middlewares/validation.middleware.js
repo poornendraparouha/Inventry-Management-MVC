@@ -2,11 +2,19 @@ import {body, validationResult} from 'express-validator';
 
 //  this is a form validation middleware using express-validator
 const formValidationMiddleware = async (req, res, next) => {
+    console.log(req.body);
     // 1. setup the validation rules
     const rules = [
         body('name').notEmpty().withMessage('Name is required'),
         body('price').isFloat({gt: 0}).withMessage('Price must be greater than 0'),
-        body('imageUrl').isURL().withMessage('Invalid URL')
+        body('imageUrl').custom((value, {req})=>{
+            if(!req.file){
+                throw new Error('Image is required');
+            }
+            return true;
+        })
+        // body('imageUrl').isURL().withMessage('Invalid URL')
+
     ];
     // 2. run the validation rules
     await Promise.all(rules.map(rule => rule.run(req)));
