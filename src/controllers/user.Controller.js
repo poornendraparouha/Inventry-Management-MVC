@@ -22,7 +22,15 @@ export default class UserController {
         }
         req.session.userEmail = email;
         let products = ProductModal.get();
-        res.render('products', {products});
-        
+        res.render('products', {products, userEmail: req.session.userEmail});  
+    };
+    signOut(req, res){
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send('Unable to log out');
+            }
+            res.redirect('/signin');
+        });
     }
+
 }

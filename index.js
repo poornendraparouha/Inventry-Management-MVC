@@ -42,6 +42,7 @@ server.get('/register', userController.getRegister);
 server.get('/signin', userController.getSignIn);
 server.get('/new',authMiddleware, productController.getAddForm);
 server.get('/update-product/:id',authMiddleware, productController.getUpdateProductView);
+server.get('/signout',userController.signOut)
 server.post('/register', userController.postRegister);
 server.post('/signin', userController.postSignIn);
 server.post('/delete-product/:id',authMiddleware, productController.deleteProduct);

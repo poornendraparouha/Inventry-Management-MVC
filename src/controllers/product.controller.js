@@ -9,12 +9,12 @@ export default class ProductController{
         let products = ProductModal.get();
         console.log(products);
         // render the products view and pass the products array to it
-        res.render('products', {products:products});
+        res.render('products', {products:products, userEmail: req.session.userEmail});
         // return res.sendFile(path.join(path.resolve(),"src","views","products.html"));
     }
 
     getAddForm(req, res){
-        return res.render('new-product', {errorMessage: null});
+        return res.render('new-product', {errorMessage: null, userEmail: req.session.userEmail});
     }
 
     addNewProduct(req, res){
@@ -23,7 +23,7 @@ export default class ProductController{
         const imageUrl = "images/" + req.file.filename;
         ProductModal.add(name, desc, price, imageUrl);        
         let products = ProductModal.get();
-        return res.render('products', {products:products});
+        return res.render('products', {products:products, userEmail: req.session.userEmail});
     }
 
     getUpdateProductView( req, res, next){
@@ -31,7 +31,7 @@ export default class ProductController{
         const id = req.params.id;
         let productFound = ProductModal.getById(id);
         if(productFound){
-             res.render('update-product', {product: productFound , errorMessage: null});
+             res.render('update-product', {product: productFound , errorMessage: null, userEmail: req.session.userEmail});
         }else{
             // 2. else return error message
             res.status(401).send('Product not found');
