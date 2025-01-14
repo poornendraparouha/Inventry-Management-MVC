@@ -14,7 +14,7 @@ const server = express();
 
 server.use(express.static("public"));
 server.use(cookieParser());
-server.use(setLastVisit)
+// server.use(setLastVisit)
 
 // setup express-session
 server.use(session({
@@ -41,7 +41,7 @@ const productController = new ProductController();
 
 server.use(express.static("src/views"));
 
-server.get('/', authMiddleware, productController.getProducts);
+server.get('/', authMiddleware, setLastVisit, productController.getProducts);
 server.get('/register', userController.getRegister);
 server.get('/signin', userController.getSignIn);
 server.get('/new',authMiddleware, productController.getAddForm);
